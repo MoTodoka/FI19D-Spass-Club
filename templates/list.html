@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+<h1>{% block title %}
+    {{ title }}
+{% endblock %}</h1>
+
+{% block content %}
+    <div id="boxedContent">
+        <table>
+            <tr>
+                {% for key, value in dict_list[0].items() %}
+                    {% if value.data %}
+                        {# pass #}
+                    {% else %}
+                        <td>{{ key }}</td>
+                    {% endif %}
+                {% endfor %}
+                <td>EDIT</td>
+            </tr>
+            {% for dict_item in dict_list %}
+                <tr>
+                    {% for key, value in dict_item.items() %}
+                        {% if value.data %}
+                            {# pass #}
+                        {% else %}
+                            <td>{{ value }}</td>
+                        {% endif %}
+                    {% endfor %}
+                    <td><a href="/element/{{ element_type }}/{{ dict_item.uid }}">🔍</a></td>
+                </tr>
+            {% endfor %}
+        </table>
+        <a href="/element/{{ element_type }}/0">Hinzufügen</a>
+    </div>
+{% endblock %}

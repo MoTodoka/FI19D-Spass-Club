@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+<h1>{% block title %}Dashboard{% endblock %}</h1>
+
+{% block content %}
+    <div id="contentBox">
+        <div id="boxedHeader">
+            <h2>Die letzte Runde</h2>
+        </div>
+        <div id="boxedContent">
+            {% set latest_match = match_service.get_max() %}
+            {% set latest_match_scores = score_service.get_multiple_by_match(latest_match) %}
+            Aktivität: {{ latest_match.activity.name }}
+            <br>Ort: {{ latest_match.location.name }}
+            <br>Datum/Uhrzeit: {{ latest_match.timestamp }}
+            {% if latest_match.event is not none %}
+                <br>Event: {{ latest_match.event.name }}
+            {% endif %}
+        </div>
+        <div id="boxedContent">
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Punkte</th>
+                    <th>Uhrzeit</th>
+                </tr>
+                {% for score in latest_match_scores %}
+                    <tr>
+                        <td>{{ score.player }}</td>
+                        <td>{{ score.score }}</td>
+                        <td>{{ score.timestamp }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+    <div id="contentBox">
+        <div id="boxedHeader">
+            <h2>Die Aktivsten Spieler</h2>
+        </div>
+        <div id="boxedContent">
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Aktivitäten</th>
+                </tr>
+                {% for player, i in player_service.get_most_active(3) %}
+                    <tr>
+                        <td>{{ player.name }}</td>
+                        <td>{{ i }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+    <div id="contentBox">
+        <div id="boxedHeader">
+            <h2>Das letztes Event</h2>
+        </div>
+        <div id="boxedContent">
+            {% set latest_event = event_service.get_max() %}
+            <br>Event: {{ latest_event.name }}
+            <br>Ort: {{ latest_event.location }}
+            <br>Datum/Uhrzeit: {{ latest_event.timestamp }}
+        </div>
+        <div id="boxedContent">
+            {% for match in match_service.get_multiple_by_event(latest_event) %}
+                {{ match }}
+                <table>
+                    <tr>
+                        <th>Name</th>
+                        <th>Punkte</th>
+                        <th>Uhrzeit</th>
+                    </tr>
+                    {% for score in score_service.get_multiple_by_match(match) %}
+                        <tr>
+                            <td>{{ score.player }}</td>
+                            <td>{{ score.score }}</td>
+                            <td>{{ score.timestamp }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

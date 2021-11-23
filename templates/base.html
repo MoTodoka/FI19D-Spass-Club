@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="de">
+<head>
+    <title>Spaß-Club</title>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" type="text/css" href={{ url_for("static", filename="styles/style.css" ) }}>
+</head>
+<body>
+<div id="header">
+    <a href="/"><img id="headerLogo" src="{{ url_for("static", filename="img/spassclub.png" ) }}" alt="Der Spaß-Club ev."></a>
+    {% include "navigation.html" %}
+    <div id="pageTitle">
+        <h1>{% block title %}{% endblock title %}</h1>
+    </div>
+</div>
+<div id="content">
+    {% block content %}{% endblock content %}
+</div>
+</body>
+</html>

@@ -1,0 +1,137 @@
+:root {
+    --color-1: #000f08;
+    --color-2: #1c3738;
+    --color-3: #4d4847;
+    --color-4: #f4fff8;
+    --color-5: #8baaad;
+}
+
+#headerLogo {
+    width: 100%;
+    max-width: 529px;
+    height: auto;
+    max-height: 100px;
+    object-fit: fill;
+}
+
+#navMenu {
+    display: flex;
+    padding-inline: inherit;
+    margin-block: inherit;
+    align-content: stretch;
+    justify-content: center;
+    flex-flow: row wrap;
+    width: 100%;
+}
+
+#navMenu li {
+    display: block;
+    flex: 1 max-content;
+    margin: 1px;
+    border: 1px solid var(--color-1);
+}
+
+#navMenu a {
+    display: block;
+    padding: 3px;
+    text-decoration: none;
+    background-color: var(--color-5);
+    color: var(--color-2);
+}
+
+#navMenu a:hover {
+    background-color: var(--color-1);
+    color: var(--color-4);
+}
+
+#pageTitle {
+    clear: left;
+    margin: 10px;
+}
+
+#content {
+    display: flex;
+    align-content: stretch;
+    justify-content: flex-start;
+    flex-flow: row wrap;
+    margin: 9px;
+}
+
+#contentBox {
+    display: flex;
+    flex-flow: row wrap;
+    flex: 1 content;
+    max-width: max-content;
+    padding: 5px;
+    border: 2px solid var(--color-1);
+    background: var(--color-4);
+    margin: 1px;
+}
+
+#boxedHeader {
+    flex: 100%;
+}
+
+#boxedContent {
+    flex: 1 max-content;
+}
+
+label {
+    font-size: larger;
+}
+
+select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    color: var(--color-4);
+    background-color: var(--color-2);
+}
+
+input[type=text] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    color: var(--color-4);
+    background-color: var(--color-2);
+}
+
+input[type=text]:focus {
+    color: var(--color-2);
+    background-color: var(--color-4);
+}
+
+input[type=submit] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    color: var(--color-4);
+    background-color: var(--color-3);
+}
+
+table, th, td, caption {
+    border: thin solid var(--color-1);
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border-width: thin 0 0 thin;
+    margin: 0 0 1em;
+    table-layout: auto;
+    max-width: 100%;
+}
+
+th, td {
+    font-weight: normal;
+    text-align: left;
+}
+
+th, caption {
+    color: var(--color-4);
+    background-color: var(--color-3);
+    font-weight: 700;
+}
