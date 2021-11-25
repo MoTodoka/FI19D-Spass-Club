@@ -124,11 +124,17 @@ class _DataRepository:
 
     def update(self, dictionary: dict):
         cur = self.con.sqlite3_con.cursor()
-        key_and_values = ",".join([f"{key}=\"{value}\""
-                                   for key, value in dictionary.items()
-                                   if key != "uid"
-                                   and key != "service"])
-        sql = f"UPDATE {self.table_name} SET {key_and_values} WHERE uid = {dictionary.get('uid')}"
+        keys_values_list: [str] = []
+        for key, value in dictionary.items():
+            if key != "uid" and key != "service":
+                if isinstance(value, Data):
+                    keys_values_list.append(f"{key}={str(value.uid)}")
+                elif isinstance(value, datetime):
+                    keys_values_list.append(f"{key}=\"{datetime.strftime(value, DATE_TIME_FORMAT)}\"")
+                else:
+                    keys_values_list.append(f"{key}=\"{value}\"")
+        key_values_str = ",".join(keys_values_list)
+        sql = f"UPDATE {self.table_name} SET {key_values_str} WHERE uid = {dictionary.get('uid')}"
         cur.execute(sql)
         self.con.sqlite3_con.commit()
 

@@ -21,7 +21,6 @@
                     {# Für Datenklassen Select-Felder erzeugen #}
                     <label for="{{ key }}">{{ key }}</label>
                     <select name="{{ key }}" id="{{ key }}">
-                        <option value="0" selected></option>
                         {% for list_item in value.get_service().get_all() %}
                             {% if list_item.uid == value.uid %}
                                 <option value="{{ list_item.uid }}" selected>{{ list_item }}</option>
