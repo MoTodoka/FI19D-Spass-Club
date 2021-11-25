@@ -13,7 +13,11 @@
         <form action="/element/{{ element_type }}/{{ element.uid }}" method="post">
             {# Durch dir Attribute des Elementes iterieren. #}
             {% for key, value in element.items() %}
-                {% if value.__class__.__name__[0] is upper %}
+                {% if value is none %}
+                    {# Für leere Variablen Text-Felder erzeugen #}
+                    <label for="{{ key }}">{{ key }}</label>
+                    <input type="text" name="{{ key }}" id="{{ key }}]" value="">
+                {% elif value.__class__.__name__[0] is upper %}
                     {# Für Datenklassen Select-Felder erzeugen #}
                     <label for="{{ key }}">{{ key }}</label>
                     <select name="{{ key }}" id="{{ key }}">
@@ -26,10 +30,19 @@
                             {% endif %}
                         {% endfor %}
                     </select>
-                {% elif value is string or value is number %}
+                {% elif value is string %}
                     {# Für Strings und numerische Felder Text-Felder erzeugen #}
                     <label for="{{ key }}">{{ key }}</label>
                     <input type="text" name="{{ key }}" id="{{ key }}]" value="{{ value }}">
+                {% elif value is number %}
+                    {# Für Strings und numerische Felder Text-Felder erzeugen #}
+                    <label for="{{ key }}">{{ key }}</label>
+                    <input type="number" name="{{ key }}" id="{{ key }}]" value="{{ value }}">
+                {% elif value.__class__.__name__ == "datetime" %}
+                    {# Für Strings und numerische Felder Text-Felder erzeugen #}
+                    <label for="{{ key }}">{{ key }}</label>
+                    <input type="datetime-local" name="{{ key }}" id="{{ key }}]"
+                           value="{{ value.strftime("%Y-%m-%dT%H:%M") }}">
                 {% else %}
                     {# pass #}
                 {% endif %}

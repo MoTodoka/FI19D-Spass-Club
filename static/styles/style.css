@@ -1,9 +1,9 @@
 :root {
-    --color-1: #000f08;
-    --color-2: #1c3738;
-    --color-3: #4d4847;
-    --color-4: #f4fff8;
-    --color-5: #8baaad;
+    --color-1: #003049;
+    --color-2: #669bbc;
+    --color-3: #fdf0d5;
+    --color-4: #c1121f;
+    --color-5: #780000;
 }
 
 #headerLogo {
@@ -36,12 +36,12 @@
     padding: 3px;
     text-decoration: none;
     background-color: var(--color-5);
-    color: var(--color-2);
+    color: var(--color-3);
 }
 
 #navMenu a:hover {
     background-color: var(--color-1);
-    color: var(--color-4);
+    color: var(--color-3);
 }
 
 #pageTitle {
@@ -63,8 +63,8 @@
     flex: 1 content;
     max-width: max-content;
     padding: 5px;
-    border: 2px solid var(--color-1);
-    background: var(--color-4);
+    border: 2px solid var(--color-2);
+    background: var(--color-3);
     margin: 1px;
 }
 
@@ -80,36 +80,34 @@ label {
     font-size: larger;
 }
 
-select {
+select,
+input[type=text],
+input[type=number],
+input[type=datetime-local] {
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
     box-sizing: border-box;
-    color: var(--color-4);
-    background-color: var(--color-2);
+    color: var(--color-3);
+    background-color: var(--color-1);
 }
 
-input[type=text] {
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    box-sizing: border-box;
-    color: var(--color-4);
-    background-color: var(--color-2);
-}
-
-input[type=text]:focus {
-    color: var(--color-2);
-    background-color: var(--color-4);
-}
-
-input[type=submit] {
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    box-sizing: border-box;
-    color: var(--color-4);
+select:focus,
+input[type=text]:focus,
+input[type=number]:focus,
+input[type=datetime-local]:focus {
+    color: var(--color-1);
     background-color: var(--color-3);
+}
+
+input,
+button {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    color: var(--color-3);
+    background-color: var(--color-4);
 }
 
 table, th, td, caption {
@@ -125,13 +123,16 @@ table {
     max-width: 100%;
 }
 
-th, td {
-    font-weight: normal;
+th {
+    font-weight: 700;
     text-align: left;
+    color: var(--color-3);
+    background-color: var(--color-4);
 }
 
-th, caption {
-    color: var(--color-4);
-    background-color: var(--color-3);
-    font-weight: 700;
+td {
+    font-weight: normal;
+    text-align: left;
+    color: var(--color-1);
+    background-color: var(--color-2);
 }

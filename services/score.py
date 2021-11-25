@@ -7,7 +7,7 @@ from typing import Optional
 
 from services.match import Match, MatchService
 from services.player import Player, PlayerService
-from services.data import Data, DataService, _DataConverter, _DataRepository, DATE_TIME_FORMAT
+from services.data import Data, DataService, _DataConverter, _DataRepository
 
 
 @dataclass
@@ -36,7 +36,7 @@ class _ScoreConverter(_DataConverter):
         return Score(int(dictionary["uid"]),
                      MatchService().get_by_uid(dictionary["match"]),
                      PlayerService().get_by_uid(dictionary["player"]),
-                     datetime.strptime(dictionary["timestamp"], DATE_TIME_FORMAT),
+                     self.get_date_time_from(dictionary["timestamp"]),
                      int(dictionary["score"]))
 
 

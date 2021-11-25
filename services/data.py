@@ -3,12 +3,12 @@ from __future__ import annotations
 import os
 import sqlite3
 from abc import abstractmethod
+from datetime import datetime
 from sqlite3 import Error
 
 from werkzeug.exceptions import ServiceUnavailable
 
-DATE_FORMAT: str = '%Y-%m-%d'
-DATE_TIME_FORMAT: str = '%Y-%m-%d %H:%M:%S'
+DATE_TIME_FORMAT: str = "%Y-%m-%dT%H:%M"
 
 
 class Connection:
@@ -83,6 +83,11 @@ class _DataConverter:
     Parent-Klasse für Daten-Konverter.\n
     Ermöglicht Objekte aus Dictionaries zu erzeugen.
     """
+
+    @staticmethod
+    def get_date_time_from(date_time_str: str) -> datetime:
+        return datetime.strptime(date_time_str, DATE_TIME_FORMAT)
+
     @abstractmethod
     def get_data_from_dictionary(self, dictionary: dict) -> Data:
         pass
@@ -133,11 +138,17 @@ class _DataRepository:
                          for key, value in dictionary.items()
                          if key != "uid"
                          and key != "service"])
-        values = ",".join([f"\"{value.uid if isinstance(value, Data) else value}\""
-                           for key, value in dictionary.items()
-                           if key != "uid"
-                           and key != "service"])
-        sql = f"INSERT INTO {self.table_name} ({keys}) VALUES ({values})"
+        values_list: [str] = []
+        for key, value in dictionary.items():
+            if key != "uid" and key != "service":
+                if isinstance(value, Data):
+                    values_list.append(str(value.uid))
+                elif isinstance(value, datetime):
+                    values_list.append(f"\"{datetime.strftime(value, DATE_TIME_FORMAT)}\"")
+                else:
+                    values_list.append(f"\"{value}\"")
+        values_str = ",".join(values_list)
+        sql = f"INSERT INTO {self.table_name} ({keys}) VALUES ({values_str})"
         cur.execute(sql)
         self.con.sqlite3_con.commit()
 

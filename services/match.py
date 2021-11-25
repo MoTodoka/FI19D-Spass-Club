@@ -5,7 +5,7 @@ from dataclasses import dataclass
 from datetime import datetime
 
 from services.activity import Activity, ActivityService
-from services.data import Data, DataService, _DataConverter, DATE_TIME_FORMAT, _DataRepository
+from services.data import Data, DataService, _DataConverter, _DataRepository
 from services.event import Event, EventService
 from services.location import Location, LocationService
 
@@ -31,7 +31,7 @@ class Match(Data):
 class _MatchConverter(_DataConverter):
     def get_data_from_dictionary(self, dictionary: dict) -> Match:
         return Match(int(dictionary["uid"]),
-                     datetime.strptime(dictionary["timestamp"], DATE_TIME_FORMAT),
+                     self.get_date_time_from(dictionary["timestamp"]),
                      ActivityService().get_by_uid(dictionary["activity"]),
                      LocationService().get_by_uid(dictionary["location"]),
                      EventService().get_by_uid(dictionary["event"])

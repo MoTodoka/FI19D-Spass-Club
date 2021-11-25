@@ -5,31 +5,35 @@
 {% endblock %}</h1>
 
 {% block content %}
-    <div id="boxedContent">
-        <table>
-            <tr>
-                {% for key, value in dict_list[0].items() %}
-                    {% if value.data %}
-                        {# pass #}
-                    {% else %}
-                        <td>{{ key }}</td>
-                    {% endif %}
-                {% endfor %}
-                <td>EDIT</td>
-            </tr>
-            {% for dict_item in dict_list %}
+    <div id="contentBox">
+        <div id="boxedContent">
+            <a href="/element/{{ element_type }}/0">
+                <button>Hinzufügen</button>
+            </a>
+            <table>
                 <tr>
-                    {% for key, value in dict_item.items() %}
+                    {% for key, value in dict_list[0].items() %}
                         {% if value.data %}
                             {# pass #}
                         {% else %}
-                            <td>{{ value }}</td>
+                            <th>{{ key }}</th>
                         {% endif %}
                     {% endfor %}
-                    <td><a href="/element/{{ element_type }}/{{ dict_item.uid }}">🔍</a></td>
+                    <th>EDIT</th>
                 </tr>
-            {% endfor %}
-        </table>
-        <a href="/element/{{ element_type }}/0">Hinzufügen</a>
+                {% for dict_item in dict_list %}
+                    <tr>
+                        {% for key, value in dict_item.items() %}
+                            {% if value.data %}
+                                {# pass #}
+                            {% else %}
+                                <td>{{ value }}</td>
+                            {% endif %}
+                        {% endfor %}
+                        <td><a href="/element/{{ element_type }}/{{ dict_item.uid }}">🔍</a></td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
     </div>
 {% endblock %}

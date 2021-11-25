@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from datetime import date, datetime
 
 from services.data import *
 from services.data import _DataConverter, _DataRepository
@@ -11,7 +10,6 @@ from services.data import _DataConverter, _DataRepository
 class Player(Data):
     uid: int
     name: str
-    birth_date: date
 
     def get_title(self) -> str:
         return "Spieler"
@@ -26,8 +24,7 @@ class Player(Data):
 class _PlayerConverter(_DataConverter):
     def get_data_from_dictionary(self, dictionary: dict) -> Player:
         return Player(int(dictionary["uid"]),
-                      dictionary["name"],
-                      datetime.strptime(dictionary["birth_date"], DATE_TIME_FORMAT))
+                      dictionary["name"])
 
 
 class _PlayerRepository(_DataRepository):
@@ -52,8 +49,7 @@ class PlayerService(DataService):
 
     def get_new(self) -> Player:
         return self.data(0,
-                         "",
-                         datetime.now().replace(hour=0, minute=0, second=0, microsecond=0))
+                         "")
 
     def get_most_active(self, number: int):
         return self.repository().get_most_active(number)

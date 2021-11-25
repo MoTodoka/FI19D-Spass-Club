@@ -41,8 +41,7 @@ create table player
 (
     uid        INTEGER
         primary key autoincrement,
-    name       TEXT not null,
-    birth_date DATE not null
+    name       TEXT not null
 );
 
 create table score

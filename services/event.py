@@ -3,7 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from datetime import datetime
 
-from services.data import Data, DataService, _DataConverter, _DataRepository, DATE_TIME_FORMAT
+from services.data import Data, DataService, _DataConverter, _DataRepository
 from services.location import Location, LocationService
 
 
@@ -29,7 +29,7 @@ class _EventConverter(_DataConverter):
         return Event(int(dictionary["uid"]),
                      dictionary["name"],
                      LocationService().get_by_uid(dictionary["location"]),
-                     datetime.strptime(dictionary["timestamp"], DATE_TIME_FORMAT))
+                     self.get_date_time_from(dictionary["timestamp"]))
 
 
 class _EventRepository(_DataRepository):
