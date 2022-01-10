@@ -4,15 +4,22 @@ VALUES ('Kniffel'),
        ('Skat'),
        ('Doppelkopf');
 
-INSERT INTO event (name, location, timestamp)
-VALUES ('Das Große Turnier', 2, '2021-10-23T13:00'),
-       ('Halloween-Würfeln', 1, '2021-10-31T18:00');
+INSERT INTO player (name)
+VALUES ('Peter Müller'),
+       ('Moritz Schlüter'),
+       ('Michael Meier'),
+       ('Christa Christensen'),
+       ('O. Hase');
 
 INSERT INTO location (name)
 VALUES ('Würfel-Verein Lübeck'),
        ('Club Hamburg'),
        ('Spaß-Club Neumünster'),
        ('Landesamt für Spaß Kiel');
+
+INSERT INTO event (name, location, timestamp)
+VALUES ('Das Große Turnier', 2, '2021-10-23T13:00'),
+       ('Halloween-Würfeln', 1, '2021-10-31T18:00');
 
 INSERT INTO match (timestamp, activity, location, event)
 VALUES ('2021-10-16T15:00', 1, 3, null),
@@ -26,13 +33,6 @@ VALUES ('2021-10-16T15:00', 1, 3, null),
        ('2021-10-31T18:30', 2, 1, 2),
        ('2021-10-31T19:30', 2, 1, 2),
        ('2021-10-31T20:30', 2, 1, 2);
-
-INSERT INTO player (name)
-VALUES ('Peter Müller'),
-       ('Moritz Schlüter'),
-       ('Michael Meier'),
-       ('Christa Christensen'),
-       ('O. Hase');
 
 INSERT INTO score (match, player, timestamp, score)
 VALUES (1, 1, '2021-10-16T16:04', 15),

@@ -1,6 +1,7 @@
 import flask
 from flask import Flask, render_template, request
-from werkzeug.exceptions import MethodNotAllowed, HTTPException
+from sqlite3 import IntegrityError
+from werkzeug.exceptions import MethodNotAllowed, HTTPException, Conflict
 
 from services.database_connection_service import Connection
 
@@ -88,27 +89,30 @@ def element_view(element_type, uid):
                                element=element.__dict__)
 
     if request.method == 'POST':
-        if request.form.get("edit"):
-            # Element erstellen/bearbeiten
-            data: Data = service.converter().get_data_from_dictionary(request.form)
-            if uid == "0":
-                # Element erstellen
-                service.insert(data)
-            else:
-                # Element bearbeiten
-                service.update(data)
-            return flask.redirect("/list/{0}".format(element_type))
-
-        elif request.form.get("delete"):
-            # Element löschen
-            if uid == "0":
-                raise MethodNotAllowed()
-            else:
-                service.delete(uid)
+        try:
+            if request.form.get("edit"):
+                # Element erstellen/bearbeiten
+                data: Data = service.converter().get_data_from_dictionary(request.form)
+                if uid == "0":
+                    # Element erstellen
+                    service.insert(data)
+                else:
+                    # Element bearbeiten
+                    service.update(data)
                 return flask.redirect("/list/{0}".format(element_type))
 
-        else:
-            raise MethodNotAllowed()
+            elif request.form.get("delete"):
+                # Element löschen
+                if uid == "0":
+                    raise MethodNotAllowed()
+                else:
+                    service.delete(uid)
+                return flask.redirect("/list/{0}".format(element_type))
+
+            else:
+                raise MethodNotAllowed()
+        except IntegrityError:
+            raise Conflict()
     else:
         # POST Error 405 Method Not Allowed
         raise MethodNotAllowed()

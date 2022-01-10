@@ -4,7 +4,7 @@ import os
 import sqlite3
 from sqlite3 import Error
 
-from werkzeug.exceptions import ServiceUnavailable
+from werkzeug.exceptions import ServiceUnavailable, Conflict
 
 
 class Connection:
@@ -40,9 +40,12 @@ class Connection:
         cur.executescript(sql_as_string)
 
     def reset_database(self):
-        self.remove_db()
-        self.connect_to_db()
-        self.create_tables()
+        try:
+            self.remove_db()
+            self.connect_to_db()
+            self.create_tables()
+        except PermissionError:
+            raise Conflict()
 
     def load_test_data(self, sql_file: str = "test_data.sql"):
         cur = self.sqlite3_con.cursor()

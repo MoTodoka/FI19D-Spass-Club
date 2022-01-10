@@ -1,57 +1,46 @@
 PRAGMA encoding = 'UTF-8';
+PRAGMA foreign_keys = ON;
 
 create table activity
 (
-    uid  INTEGER
-        primary key autoincrement,
-    name TEXT not null
+    uid  INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL
 );
 
 create table location
 (
-    uid  INTEGER
-        primary key autoincrement,
-    name TEXT not null
+    uid  INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL
 );
 
 create table event
 (
-    uid       INTEGER
-        primary key autoincrement,
-    name      TEXT      not null,
-    location  INTEGER   not null
-        references location,
-    timestamp TIMESTAMP not null
+    uid       INTEGER PRIMARY KEY AUTOINCREMENT,
+    name      TEXT      NOT NULL,
+    location  INTEGER   NOT NULL REFERENCES location ON DELETE RESTRICT,
+    timestamp TIMESTAMP NOT NULL
 );
 
 create table match
 (
-    uid       INTEGER
-        primary key autoincrement,
-    timestamp TIMESTAMP not null,
-    activity  INTEGER   not null
-        references activity,
-    location  INTEGER   not null
-        references location,
-    event     INTEGER
-        references event
+    uid       INTEGER PRIMARY KEY AUTOINCREMENT,
+    timestamp TIMESTAMP NOT NULL,
+    activity  INTEGER   NOT NULL REFERENCES activity ON DELETE RESTRICT,
+    location  INTEGER   NOT NULL REFERENCES location ON DELETE RESTRICT,
+    event     INTEGER REFERENCES event
 );
 
 create table player
 (
-    uid        INTEGER
-        primary key autoincrement,
-    name       TEXT not null
+    uid  INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL
 );
 
 create table score
 (
-    uid       INTEGER
-        primary key autoincrement,
-    match     INTEGER not null
-        references match,
-    player    INTEGER not null
-        references player,
+    uid       INTEGER PRIMARY KEY AUTOINCREMENT,
+    match     INTEGER NOT NULL REFERENCES match ON DELETE RESTRICT,
+    player    INTEGER NOT NULL REFERENCES player ON DELETE RESTRICT,
     timestamp TIMESTAMP,
     score     INTEGER
 );

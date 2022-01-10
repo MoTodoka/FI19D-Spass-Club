@@ -63,6 +63,7 @@ class _DataRepository:
 
     def __init__(self):
         self.con = Connection()
+        self.con.sqlite3_con.cursor().execute("PRAGMA foreign_keys = ON;")
 
     def get_all(self) -> [sqlite3.Row]:
         cur = self.con.sqlite3_con.cursor()
