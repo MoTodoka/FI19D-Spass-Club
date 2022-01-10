@@ -63,8 +63,8 @@
     flex: 1 content;
     max-width: max-content;
     padding: 5px;
-    border: 2px solid var(--color-2);
-    background: var(--color-3);
+    border: 2px solid var(--color-1);
+    background: var(--color-2);
     margin: 1px;
 }
 
@@ -88,16 +88,16 @@ input[type=datetime-local] {
     padding: 12px 20px;
     margin: 8px 0;
     box-sizing: border-box;
-    color: var(--color-3);
-    background-color: var(--color-1);
+    color: var(--color-1);
+    background-color: var(--color-3);
 }
 
 select:focus,
 input[type=text]:focus,
 input[type=number]:focus,
 input[type=datetime-local]:focus {
-    color: var(--color-1);
-    background-color: var(--color-3);
+    color: var(--color-3);
+    background-color: var(--color-1);
 }
 
 input,
@@ -134,5 +134,5 @@ td {
     font-weight: normal;
     text-align: left;
     color: var(--color-1);
-    background-color: var(--color-2);
+    background-color: var(--color-3);
 }
