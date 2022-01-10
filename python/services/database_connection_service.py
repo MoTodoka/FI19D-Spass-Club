@@ -33,11 +33,11 @@ class Connection:
         if os.path.exists(self.db_path):
             os.remove(self.db_path)
 
-    def create_tables(self, sql_file: str = "SQLite/tables.sql"):
+    def create_tables(self, tables_path: str = "SQLite/tables.sql"):
         cur = self.sqlite3_con.cursor()
-        sql_file = open(sql_file)
-        sql_as_string = sql_file.read()
-        cur.executescript(sql_as_string)
+        with open(tables_path) as sql_file:
+            sql_as_string = sql_file.read()
+            cur.executescript(sql_as_string)
 
     def reset_database(self):
         try:
@@ -47,8 +47,8 @@ class Connection:
         except PermissionError:
             raise Conflict()
 
-    def load_test_data(self, sql_file: str = "SQLite/test_data.sql"):
+    def load_test_data(self, test_data_path: str = "SQLite/test_data.sql"):
         cur = self.sqlite3_con.cursor()
-        sql_file = open(sql_file, "rb")
-        sql_as_string = sql_file.read().decode("UTF-8")
-        cur.executescript(sql_as_string)
+        with open(test_data_path, "rb") as sql_file:
+            sql_as_string = sql_file.read().decode("UTF-8")
+            cur.executescript(sql_as_string)
