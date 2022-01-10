@@ -131,4 +131,10 @@ def error(e):
 
 
 if __name__ == '__main__':
+    # Datenbank erstellen/zurücksetzen und mit Test-Daten füllen.
+    setup_con = Connection()
+    setup_con.reset_database()
+    setup_con.load_test_data()
+
+    # WebApp starten.
     app.run()
