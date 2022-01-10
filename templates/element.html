@@ -9,49 +9,52 @@
 {% endblock %}</h1>
 
 {% block content %}
-    <div id="boxedContent">
-        <form action="/element/{{ element_type }}/{{ element.uid }}" method="post">
-            {# Durch dir Attribute des Elementes iterieren. #}
-            {% for key, value in element.items() %}
-                {% if value is none %}
-                    {# Für leere Variablen Text-Felder erzeugen #}
-                    <label for="{{ key }}">{{ key }}</label>
-                    <input type="text" name="{{ key }}" id="{{ key }}]" value="">
-                {% elif value.__class__.__name__[0] is upper %}
-                    {# Für Datenklassen Select-Felder erzeugen #}
-                    <label for="{{ key }}">{{ key }}</label>
-                    <select name="{{ key }}" id="{{ key }}">
-                        {% for list_item in value.get_service().get_all() %}
-                            {% if list_item.uid == value.uid %}
-                                <option value="{{ list_item.uid }}" selected>{{ list_item }}</option>
-                            {% else %}
-                                <option value="{{ list_item.uid }}">{{ list_item }}</option>
-                            {% endif %}
-                        {% endfor %}
-                    </select>
-                {% elif value is string %}
-                    {# Für Strings und numerische Felder Text-Felder erzeugen #}
-                    <label for="{{ key }}">{{ key }}</label>
-                    <input type="text" name="{{ key }}" id="{{ key }}]" value="{{ value }}">
-                {% elif value is number %}
-                    {# Für Strings und numerische Felder Text-Felder erzeugen #}
-                    <label for="{{ key }}">{{ key }}</label>
-                    <input type="number" name="{{ key }}" id="{{ key }}]" value="{{ value }}">
-                {% elif value.__class__.__name__ == "datetime" %}
-                    {# Für Strings und numerische Felder Text-Felder erzeugen #}
-                    <label for="{{ key }}">{{ key }}</label>
-                    <input type="datetime-local" name="{{ key }}" id="{{ key }}]"
-                           value="{{ value.strftime("%Y-%m-%dT%H:%M") }}">
-                {% else %}
-                    {# pass #}
+    <div id="contentBox">
+        <div id="boxedContent">
+            <form action="/element/{{ element_type }}/{{ element.uid }}" method="post">
+                {# Durch dir Attribute des Elementes iterieren. #}
+                {% for key, value in element.items() %}
+                    {% if value is none %}
+                        {# Für leere Variablen Text-Felder erzeugen #}
+                        <label for="{{ key }}">{{ key }}</label>
+                        <input type="text" name="{{ key }}" id="{{ key }}]" value="">
+                    {% elif value.__class__.__name__[0] is upper %}
+                        {# Für Datenklassen Select-Felder erzeugen #}
+                        <label for="{{ key }}">{{ key }}</label>
+                        <select name="{{ key }}" id="{{ key }}">
+                            {% for list_item in value.get_service().get_all() %}
+                                {% if list_item.uid == value.uid %}
+                                    <option value="{{ list_item.uid }}" selected>{{ list_item }}</option>
+                                {% else %}
+                                    <option value="{{ list_item.uid }}">{{ list_item }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    {% elif value is string %}
+                        {# Für Strings und numerische Felder Text-Felder erzeugen #}
+                        <label for="{{ key }}">{{ key }}</label>
+                        <input type="text" name="{{ key }}" id="{{ key }}]" value="{{ value }}">
+                    {% elif value is number %}
+                        {# Für Strings und numerische Felder Text-Felder erzeugen #}
+                        <label for="{{ key }}">{{ key }}</label>
+                        <input type="number" name="{{ key }}" id="{{ key }}]" value="{{ value }}"{% if key == "uid" %}
+                               disabled {% endif %}>
+                    {% elif value.__class__.__name__ == "datetime" %}
+                        {# Für Strings und numerische Felder Text-Felder erzeugen #}
+                        <label for="{{ key }}">{{ key }}</label>
+                        <input type="datetime-local" name="{{ key }}" id="{{ key }}]"
+                               value="{{ value.strftime("%Y-%m-%dT%H:%M") }}">
+                    {% else %}
+                        {# pass #}
+                    {% endif %}
+                {% endfor %}
+                <input type="submit" id="edit" name="edit"
+                       value="{% if element.uid == 0 %}Erstellen{% else %}Ändern{% endif %}">
+                {% if element.uid != 0 %}
+                    {# Löschen-Knopf nicht bei neuen Elementen. #}
+                    <input type="submit" id="delete" name="delete" value="Löschen">
                 {% endif %}
-            {% endfor %}
-            <input type="submit" id="edit" name="edit"
-                   value="{% if element.uid == 0 %}Erstellen{% else %}Ändern{% endif %}">
-            {% if element.uid != 0 %}
-                {# Löschen-Knopf nicht bei neuen Elementen. #}
-                <input type="submit" id="delete" name="delete" value="Löschen">
-            {% endif %}
-        </form>
+            </form>
+        </div>
     </div>
 {% endblock %}
