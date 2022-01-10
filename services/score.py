@@ -37,7 +37,7 @@ class _ScoreConverter(_DataConverter):
                      MatchService().get_by_uid(dictionary["match"]),
                      PlayerService().get_by_uid(dictionary["player"]),
                      self.get_date_time_from(dictionary["timestamp"]),
-                     int(dictionary["score"]))
+                     None if dictionary["score"] == "" else int(dictionary["score"]))
 
 
 class _ScoreRepository(_DataRepository):
