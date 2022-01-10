@@ -3,12 +3,12 @@ from __future__ import annotations
 from dataclasses import dataclass
 from datetime import datetime
 
-from services.database_connection_service import *
+from python.services.database_connection_service import *
 
-from data.activity import Activity, ActivityService
-from data.activity import Data, DataService, _DataConverter, _DataRepository
-from data.event import Event, EventService
-from data.location import Location, LocationService
+from python.data.activity import Activity, ActivityService
+from python.data.activity import Data, DataService, _DataConverter, _DataRepository
+from python.data.event import Event, EventService
+from python.data.location import Location, LocationService
 
 
 @dataclass

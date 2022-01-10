@@ -3,16 +3,16 @@ from flask import Flask, render_template, request
 from sqlite3 import IntegrityError
 from werkzeug.exceptions import MethodNotAllowed, HTTPException, Conflict
 
-from services.database_connection_service import Connection
+from python.services.database_connection_service import Connection
 
-from data.generic_data import DataService, Data
+from python.data.generic_data import DataService, Data
 
-from data.activity import ActivityService
-from data.event import EventService
-from data.location import LocationService
-from data.match import MatchService
-from data.player import PlayerService
-from data.score import ScoreService
+from python.data.activity import ActivityService
+from python.data.event import EventService
+from python.data.location import LocationService
+from python.data.match import MatchService
+from python.data.player import PlayerService
+from python.data.score import ScoreService
 
 app = Flask(__name__)
 
@@ -28,6 +28,15 @@ def get_service_by_table_name(key) -> DataService:
         "score": ScoreService()
     }
     return switcher.get(key)
+
+
+@app.before_first_request
+def create_database():
+    # Datenbank erstellen/zurücksetzen und mit Test-Daten füllen.
+    setup_con = Connection()
+    setup_con.reset_database()
+    setup_con.load_test_data()
+    print("Datenbank erstellt")
 
 
 @app.route("/")
@@ -138,10 +147,5 @@ def error(e):
 
 
 if __name__ == '__main__':
-    # Datenbank erstellen/zurücksetzen und mit Test-Daten füllen.
-    setup_con = Connection()
-    setup_con.reset_database()
-    setup_con.load_test_data()
-
     # WebApp starten.
     app.run()

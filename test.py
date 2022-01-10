@@ -1,16 +1,16 @@
 import unittest
 from datetime import datetime
 
-from services.database_connection_service import Connection
-from data.event import Event, EventService
-from data.location import Location, LocationService
-from data.match import MatchService
-from data.player import PlayerService
-from data.score import Score, ScoreService
+from python.services.database_connection_service import Connection
+from python.data.event import Event, EventService
+from python.data.location import Location, LocationService
+from python.data.match import MatchService
+from python.data.player import PlayerService
+from python.data.score import Score, ScoreService
 
 
 class TestDb(unittest.TestCase):
-    def test_reset_test_data(self):
+    def setUp(self) -> None:
         con = Connection()
         con.reset_database()
         con.load_test_data()
@@ -21,7 +21,7 @@ class TestDb(unittest.TestCase):
         self.assertEqual(str(location), str(expected))
 
     def test_get_all_locations(self):
-        expected: Location = Location("Club Hamburg")
+        expected: Location = Location(2, "Club Hamburg")
         locations: [Location] = LocationService().get_all()
         self.assertEqual(str(locations[1]), str(expected))
 

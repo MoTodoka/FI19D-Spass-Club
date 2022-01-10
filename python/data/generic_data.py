@@ -4,7 +4,7 @@ import sqlite3
 from abc import abstractmethod
 from datetime import datetime
 
-from services.database_connection_service import Connection
+from python.services.database_connection_service import Connection
 
 DATE_TIME_FORMAT: str = "%Y-%m-%dT%H:%M"
 

@@ -4,12 +4,12 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import Optional
 
-from services.database_connection_service import *
+from python.services.database_connection_service import *
 
-from data.generic_data import Data, DataService, _DataConverter, _DataRepository
+from python.data.generic_data import Data, DataService, _DataConverter, _DataRepository
 
-from data.match import Match, MatchService
-from data.player import Player, PlayerService
+from python.data.match import Match, MatchService
+from python.data.player import Player, PlayerService
 
 
 @dataclass

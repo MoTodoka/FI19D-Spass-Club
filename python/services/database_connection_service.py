@@ -14,7 +14,7 @@ class Connection:
     sqlite3_con: sqlite3.Connection = None
     db_path: str
 
-    def __init__(self, db_path: str = 'spass_club.db'):
+    def __init__(self, db_path: str = 'SQLite/spass_club.db'):
         self.db_path = db_path
         self.connect_to_db()
 
@@ -33,7 +33,7 @@ class Connection:
         if os.path.exists(self.db_path):
             os.remove(self.db_path)
 
-    def create_tables(self, sql_file: str = "tables.sql"):
+    def create_tables(self, sql_file: str = "SQLite/tables.sql"):
         cur = self.sqlite3_con.cursor()
         sql_file = open(sql_file)
         sql_as_string = sql_file.read()
@@ -47,7 +47,7 @@ class Connection:
         except PermissionError:
             raise Conflict()
 
-    def load_test_data(self, sql_file: str = "test_data.sql"):
+    def load_test_data(self, sql_file: str = "SQLite/test_data.sql"):
         cur = self.sqlite3_con.cursor()
         sql_file = open(sql_file, "rb")
         sql_as_string = sql_file.read().decode("UTF-8")
