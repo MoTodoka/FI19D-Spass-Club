@@ -2,13 +2,16 @@ import flask
 from flask import Flask, render_template, request
 from werkzeug.exceptions import MethodNotAllowed, HTTPException
 
-from services.activity import ActivityService
-from services.data import DataService, Data, Connection
-from services.event import EventService
-from services.location import LocationService
-from services.match import MatchService
-from services.player import PlayerService
-from services.score import ScoreService
+from services.database_connection_service import Connection
+
+from data.generic_data import DataService, Data
+
+from data.activity import ActivityService
+from data.event import EventService
+from data.location import LocationService
+from data.match import MatchService
+from data.player import PlayerService
+from data.score import ScoreService
 
 app = Flask(__name__)
 

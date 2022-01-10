@@ -36,9 +36,11 @@
                         <input type="text" name="{{ key }}" id="{{ key }}]" value="{{ value }}">
                     {% elif value is number %}
                         {# Für Strings und numerische Felder Text-Felder erzeugen #}
-                        <label for="{{ key }}">{{ key }}</label>
+                        {% if key != "uid" %}
+                            <label for="{{ key }}">{{ key }}</label>
+                        {% endif %}
                         <input type="number" name="{{ key }}" id="{{ key }}]" value="{{ value }}"{% if key == "uid" %}
-                               disabled {% endif %}>
+                               hidden {% endif %}>
                     {% elif value.__class__.__name__ == "datetime" %}
                         {# Für Strings und numerische Felder Text-Felder erzeugen #}
                         <label for="{{ key }}">{{ key }}</label>

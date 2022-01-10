@@ -1,13 +1,14 @@
 from __future__ import annotations
 
-import sqlite3
 from dataclasses import dataclass
 from datetime import datetime
 
-from services.activity import Activity, ActivityService
-from services.data import Data, DataService, _DataConverter, _DataRepository
-from services.event import Event, EventService
-from services.location import Location, LocationService
+from services.database_connection_service import *
+
+from data.activity import Activity, ActivityService
+from data.activity import Data, DataService, _DataConverter, _DataRepository
+from data.event import Event, EventService
+from data.location import Location, LocationService
 
 
 @dataclass

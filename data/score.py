@@ -1,13 +1,15 @@
 from __future__ import annotations
 
-import sqlite3
 from dataclasses import dataclass
 from datetime import datetime
 from typing import Optional
 
-from services.match import Match, MatchService
-from services.player import Player, PlayerService
-from services.data import Data, DataService, _DataConverter, _DataRepository
+from services.database_connection_service import *
+
+from data.generic_data import Data, DataService, _DataConverter, _DataRepository
+
+from data.match import Match, MatchService
+from data.player import Player, PlayerService
 
 
 @dataclass
