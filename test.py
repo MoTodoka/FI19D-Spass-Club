@@ -1,12 +1,12 @@
 import unittest
 from datetime import datetime
 
-from services.data import _DataRepository, Connection
-from services.event import Event, EventService
-from services.location import Location, LocationService
-from services.match import MatchService
-from services.player import PlayerService
-from services.score import Score, ScoreService
+from services.database_connection_service import Connection
+from data.event import Event, EventService
+from data.location import Location, LocationService
+from data.match import MatchService
+from data.player import PlayerService
+from data.score import Score, ScoreService
 
 
 class TestDb(unittest.TestCase):

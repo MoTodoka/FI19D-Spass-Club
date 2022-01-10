@@ -3,8 +3,8 @@ from __future__ import annotations
 from dataclasses import dataclass
 from datetime import datetime
 
-from services.data import Data, DataService, _DataConverter, _DataRepository
-from services.location import Location, LocationService
+from data.generic_data import Data, DataService, _DataConverter, _DataRepository
+from data.location import Location, LocationService
 
 
 @dataclass

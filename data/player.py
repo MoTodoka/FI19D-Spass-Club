@@ -2,8 +2,9 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-from services.data import *
-from services.data import _DataConverter, _DataRepository
+from services.database_connection_service import *
+
+from data.generic_data import Data, DataService, _DataConverter, _DataRepository
 
 
 @dataclass
