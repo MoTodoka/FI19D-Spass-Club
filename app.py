@@ -31,12 +31,8 @@ def get_service_by_table_name(key) -> DataService:
 
 
 @app.before_first_request
-def create_database():
-    # Datenbank erstellen/zurücksetzen und mit Test-Daten füllen.
-    setup_con = Connection()
-    setup_con.reset_database()
-    setup_con.load_test_data()
-    print("Datenbank erstellt")
+def before_first_request():
+    reset_test_data()
 
 
 @app.route("/")
@@ -128,10 +124,11 @@ def element_view(element_type, uid):
 
 
 @app.route("/reset_test_data")
-def load_test_data():
+def reset_test_data():
     """
     Tabellen neu erzeugen und Testdaten laden.
     """
+    print("Datenbank/Testdaten neu erzeugen.")
     con = Connection()
     con.reset_database()
     con.load_test_data()
