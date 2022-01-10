@@ -5,6 +5,12 @@
 Diese Software wurde zu Demonstrationszwecken erstellt. Das Onlineportal ermöglicht das Erfassen von Spielergebnissen
 mit einigen relevanten Metainformationen.
 
+## Starten der App
+
+Wenn alle Packages in requirements.txt verfügbar sind, in app.py ausführen.
+Getestet wurde diese Software mit Python 3.10.
+
+
 ## Dashboard
 
 Auf dem Dashboard finden Sie einige Beispiele für Widgets.

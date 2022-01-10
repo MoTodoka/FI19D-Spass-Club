@@ -1,8 +1,11 @@
+import sys
+
 import flask
 from flask import Flask, render_template, request
 from sqlite3 import IntegrityError
 from werkzeug.exceptions import MethodNotAllowed, HTTPException, Conflict
 
+from python.data.b_colors import BColors
 from python.services.database_connection_service import Connection
 
 from python.data.generic_data import DataService, Data
@@ -13,6 +16,8 @@ from python.data.location import LocationService
 from python.data.match import MatchService
 from python.data.player import PlayerService
 from python.data.score import ScoreService
+
+PYTHON_VERSION = (3, 10)
 
 app = Flask(__name__)
 
@@ -32,6 +37,11 @@ def get_service_by_table_name(key) -> DataService:
 
 @app.before_first_request
 def before_first_request():
+    if sys.version_info[0:2] != PYTHON_VERSION:
+        print(BColors.WARNING +
+              f"WARNUNG!: Dieses Programm wurde mit Python {PYTHON_VERSION[0]}.{PYTHON_VERSION[1]} getestet. "
+              "Andere Versionen werden nicht unterstützt und auf eigenes Risiko verwendet!" +
+              BColors.ENDC)
     reset_test_data()
 
 
@@ -128,7 +138,7 @@ def reset_test_data():
     """
     Tabellen neu erzeugen und Testdaten laden.
     """
-    print("Datenbank/Testdaten neu erzeugen.")
+    print(BColors.OKBLUE + "Datenbank/Testdaten neu erzeugen." + BColors.ENDC)
     con = Connection()
     con.reset_database()
     con.load_test_data()
