@@ -53,7 +53,7 @@ class _DataConverter:
         return result_set
 
 
-class _DataRepository:
+class _DataDbConnection:
     """
     Implementiert Basis-Funktionalität für SQL-Abfragen.\n
     Rückgabewerte bei SELECTs sind sqlite3.Rows.
@@ -128,7 +128,7 @@ class DataService:
     """
     data: Data.__class__
     converter: _DataConverter.__class__
-    repository: _DataRepository.__class__
+    repository: _DataDbConnection.__class__
 
     def get_all(self) -> [data]:
         rows: [sqlite3.Row] = self.repository().get_all()

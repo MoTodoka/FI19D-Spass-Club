@@ -3,7 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from datetime import datetime
 
-from python.data.generic_data import Data, DataService, _DataConverter, _DataRepository
+from python.data.generic_data import Data, DataService, _DataConverter, _DataDbConnection
 from python.data.location import Location, LocationService
 
 
@@ -32,14 +32,14 @@ class _EventConverter(_DataConverter):
                      self.get_date_time_from(dictionary["timestamp"]))
 
 
-class _EventRepository(_DataRepository):
+class _EventDbConnection(_DataDbConnection):
     table_name = "event"
 
 
 class EventService(DataService):
     data: Data.__class__ = Event
     converter: _DataConverter.__class__ = _EventConverter
-    repository: _DataRepository.__class__ = _EventRepository
+    repository: _DataDbConnection.__class__ = _EventDbConnection
 
     def get_new(self) -> Event:
         return self.data(0,

@@ -4,7 +4,7 @@ from dataclasses import dataclass
 
 from python.services.database_connection_service import *
 
-from python.data.generic_data import Data, DataService, _DataConverter, _DataRepository
+from python.data.generic_data import Data, DataService, _DataConverter, _DataDbConnection
 
 
 @dataclass
@@ -28,7 +28,7 @@ class _PlayerConverter(_DataConverter):
                       dictionary["name"])
 
 
-class _PlayerRepository(_DataRepository):
+class _PlayerDbConnection(_DataDbConnection):
     table_name = "player"
 
     def get_most_active(self, number: int) -> [(Player, int)]:
@@ -46,7 +46,7 @@ class _PlayerRepository(_DataRepository):
 class PlayerService(DataService):
     data: Data.__class__ = Player
     converter: _DataConverter.__class__ = _PlayerConverter
-    repository: _DataRepository.__class__ = _PlayerRepository
+    repository: _DataDbConnection.__class__ = _PlayerDbConnection
 
     def get_new(self) -> Player:
         return self.data(0,

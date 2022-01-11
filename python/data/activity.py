@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-from python.data.generic_data import Data, DataService, _DataConverter, _DataRepository
+from python.data.generic_data import Data, DataService, _DataConverter, _DataDbConnection
 
 
 @dataclass
@@ -26,14 +26,14 @@ class _ActivityConverter(_DataConverter):
                         dictionary["name"])
 
 
-class _ActivityRepository(_DataRepository):
+class _ActivityDbConnection(_DataDbConnection):
     table_name = "activity"
 
 
 class ActivityService(DataService):
     data: Data.__class__ = Activity
     converter: _DataConverter.__class__ = _ActivityConverter
-    repository: _DataRepository.__class__ = _ActivityRepository
+    repository: _DataDbConnection.__class__ = _ActivityDbConnection
 
     def get_new(self) -> Activity:
         return self.data(0,

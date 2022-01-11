@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-from python.data.generic_data import Data, DataService, _DataConverter, _DataRepository
+from python.data.generic_data import Data, DataService, _DataConverter, _DataDbConnection
 
 
 @dataclass
@@ -26,14 +26,14 @@ class _LocationConverter(_DataConverter):
                         dictionary["name"])
 
 
-class _LocationRepository(_DataRepository):
+class _LocationDbConnection(_DataDbConnection):
     table_name = "location"
 
 
 class LocationService(DataService):
     data: Data.__class__ = Location
     converter: _DataConverter.__class__ = _LocationConverter
-    repository: _DataRepository.__class__ = _LocationRepository
+    repository: _DataDbConnection.__class__ = _LocationDbConnection
 
     def get_new(self) -> Location:
         return self.data(0,

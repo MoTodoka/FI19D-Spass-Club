@@ -6,7 +6,7 @@ from typing import Optional
 
 from python.services.database_connection_service import *
 
-from python.data.generic_data import Data, DataService, _DataConverter, _DataRepository
+from python.data.generic_data import Data, DataService, _DataConverter, _DataDbConnection
 
 from python.data.match import Match, MatchService
 from python.data.player import Player, PlayerService
@@ -42,7 +42,7 @@ class _ScoreConverter(_DataConverter):
                      None if dictionary["score"] == "" else int(dictionary["score"]))
 
 
-class _ScoreRepository(_DataRepository):
+class _ScoreDbConnection(_DataDbConnection):
     table_name = "score"
 
     def get_multiple_by_match(self, match_uid: int) -> [sqlite3.Row]:
@@ -59,7 +59,7 @@ class _ScoreRepository(_DataRepository):
 class ScoreService(DataService):
     data: Data.__class__ = Score
     converter: _DataConverter.__class__ = _ScoreConverter
-    repository: _DataRepository.__class__ = _ScoreRepository
+    repository: _DataDbConnection.__class__ = _ScoreDbConnection
 
     def get_new(self) -> Score:
         return self.data(0,

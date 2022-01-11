@@ -6,7 +6,7 @@ from datetime import datetime
 from python.services.database_connection_service import *
 
 from python.data.activity import Activity, ActivityService
-from python.data.activity import Data, DataService, _DataConverter, _DataRepository
+from python.data.activity import Data, DataService, _DataConverter, _DataDbConnection
 from python.data.event import Event, EventService
 from python.data.location import Location, LocationService
 
@@ -40,7 +40,7 @@ class _MatchConverter(_DataConverter):
                      else EventService().get_new())
 
 
-class _MatchRepository(_DataRepository):
+class _MatchDbConnection(_DataDbConnection):
     table_name = "match"
 
     def get_multiple_by_event(self, event_uid: int) -> [sqlite3.Row]:
@@ -52,7 +52,7 @@ class _MatchRepository(_DataRepository):
 class MatchService(DataService):
     data: Data.__class__ = Match
     converter: _DataConverter.__class__ = _MatchConverter
-    repository: _DataRepository.__class__ = _MatchRepository
+    repository: _DataDbConnection.__class__ = _MatchDbConnection
 
     def get_new(self) -> Match:
         return self.data(0,
