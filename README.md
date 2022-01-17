@@ -7,7 +7,7 @@ mit einigen relevanten Metainformationen.
 
 ## Starten der App
 
-Wenn alle Packages in requirements.txt verfügbar sind, in app.py ausführen.
+Wenn alle in der requirements.txt definierten Packages installiert sind, app.py ausführen.
 Getestet wurde diese Software mit Python 3.10.
 
 
@@ -16,6 +16,8 @@ Getestet wurde diese Software mit Python 3.10.
 Auf dem Dashboard finden Sie einige Beispiele für Widgets.
 
 ### Widgets
+
+Weitere Widgets können auf Wunsch hinzugefügt werden.
 
 #### Die letzte Runde
 
@@ -29,8 +31,6 @@ Punktzahl) haben.
 #### Das letzte Event
 
 In dieser Kachel wird das aktuellste Event mit allen gespielten Runden angezeigt.
-
-Weitere Widgets können auf Wunsch hinzugefügt werden.
 
 ## Aktivitäten
 
